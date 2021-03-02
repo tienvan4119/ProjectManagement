@@ -1,17 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using ProjectManager.Infrastructure.Data;
+using ProjectManager.Domain.Authentication;
 
 namespace ProjectManager.Infrastructure
 {
     public class DbFactory : IDisposable
     {
         private bool _disposed;
-        private readonly Func<ProjectManageContext> _instanceFunc;
+        private readonly Func<ApplicationDbContext> _instanceFunc;
         private DbContext _dbContext;
         public DbContext DbContext => _dbContext ??= _instanceFunc.Invoke();
 
-        public DbFactory(Func<ProjectManageContext> dbContextFactory)
+        public DbFactory(Func<ApplicationDbContext> dbContextFactory)
         {
             _instanceFunc = dbContextFactory;
         }

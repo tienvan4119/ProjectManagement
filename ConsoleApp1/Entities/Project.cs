@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,12 +9,8 @@ using ProjectManager.Domain.Base;
 namespace ProjectManager.Domain.Entities
 {
     [Table("Projects")]
-    public partial class Project : AuditEntity<short>
+    public partial class Project : AuditEntity<string>
     {
-        public Project()
-        {
-
-        }
         [Required(ErrorMessage = "Project's Name must be filled")]
         public string ProjectName { get; set; }
         [Required(ErrorMessage = "Please input Start Date")]
@@ -23,7 +18,9 @@ namespace ProjectManager.Domain.Entities
         public DateTime? EndDate { get; set; }
         public bool Status { get; set; }
         public string? Description { get; set; }
-        public int ClientId { get; set; }
+        public string ClientId { get; set; }
+        [ForeignKey(nameof(ClientId))]
         public Client Client { get; set; }
+        public virtual ICollection<Todo> Todos { get; set; }
     }
 }

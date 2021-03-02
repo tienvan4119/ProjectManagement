@@ -53,7 +53,6 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManag
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.AssemblyInfoInputs.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.AssemblyInfo.cs
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.csproj.CoreCompileInputs.cache
-C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\staticwebassets\ProjectManager.API.StaticWebAssets.Manifest.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\staticwebassets\ProjectManager.API.StaticWebAssets.xml
@@ -64,3 +63,8 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManag
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ref\ProjectManager.API.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.pdb
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.genruntimeconfig.cache
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManager.Domain.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManager.Domain.pdb
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManager.Infrastructure.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManager.Infrastructure.pdb
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.MvcApplicationPartsAssemblyInfo.cs

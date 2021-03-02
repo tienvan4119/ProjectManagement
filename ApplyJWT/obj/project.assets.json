@@ -1546,6 +1546,35 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "ProjectManager.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.3",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.3"
+        },
+        "compile": {
+          "bin/placeholder/ProjectManager.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectManager.Domain.dll": {}
+        }
+      },
+      "ProjectManager.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.3",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.3",
+          "ProjectManager.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ProjectManager.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectManager.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -5696,6 +5725,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "ProjectManager.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ConsoleApp1/ProjectManager.Domain.csproj",
+      "msbuildProject": "../ConsoleApp1/ProjectManager.Domain.csproj"
+    },
+    "ProjectManager.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../ProjectManager.Infrastructure/ProjectManager.Infrastructure.csproj",
+      "msbuildProject": "../ProjectManager.Infrastructure/ProjectManager.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5706,6 +5745,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.3",
+      "ProjectManager.Domain >= 1.0.0",
+      "ProjectManager.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -5735,7 +5776,14 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\van.nguyen\\source\\repos\\ApplyJWT\\ConsoleApp1\\ProjectManager.Domain.csproj": {
+              "projectPath": "C:\\Users\\van.nguyen\\source\\repos\\ApplyJWT\\ConsoleApp1\\ProjectManager.Domain.csproj"
+            },
+            "C:\\Users\\van.nguyen\\source\\repos\\ApplyJWT\\ProjectManager.Infrastructure\\ProjectManager.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\van.nguyen\\source\\repos\\ApplyJWT\\ProjectManager.Infrastructure\\ProjectManager.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

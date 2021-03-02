@@ -17,7 +17,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Tokens;
-using ProjectManager.API.Authentication;
+using ProjectManager.API.Extensions;
+using ProjectManager.Domain.Authentication;
+using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure;
 
 namespace ApplyJWT
 {
@@ -31,12 +34,21 @@ namespace ApplyJWT
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+       
+
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             //Entity Framework
             services.AddDbContext<ApplicationDbContext>(option =>
                 option.UseSqlServer(Configuration.GetConnectionString("ConStr")));
+            services.AddRepositories()
+                    .AddServices();
+
+            services.AddScoped<Func<ApplicationDbContext>>((provider) => () => provider.GetService<ApplicationDbContext>());
+            services.AddScoped<DbFactory>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -86,9 +98,11 @@ namespace ApplyJWT
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
+            //Authentication & Authorization
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

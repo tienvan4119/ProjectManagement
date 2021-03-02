@@ -10,9 +10,9 @@ namespace ProjectManager.Infrastructure
         {
             _dbFactory = dbFactory;
         }
-        public void SaveChanges()
+        public Task<int> SaveChanges()
         {
-            _dbFactory.DbContext.SaveChanges();
+            return _dbFactory.DbContext.SaveChangesAsync();
         }
     }
 }

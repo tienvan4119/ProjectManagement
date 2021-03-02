@@ -4,6 +4,6 @@ namespace ProjectManager.Domain.Interface
 {
     public interface IUnitOfWork
     {
-        void SaveChanges();
+        Task<int> SaveChanges();
     }
 }
