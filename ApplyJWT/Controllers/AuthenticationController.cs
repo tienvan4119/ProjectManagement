@@ -19,11 +19,11 @@ namespace ProjectManager.API.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
@@ -38,7 +38,7 @@ namespace ProjectManager.API.Controllers
             if (userExist != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = " User Already Exist" });
 
-            var user = new ApplicationUser
+            var user = new User
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -63,7 +63,7 @@ namespace ProjectManager.API.Controllers
             if (userExist != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = " User Already Exist" });
 
-            var user = new ApplicationUser
+            var user = new User
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),

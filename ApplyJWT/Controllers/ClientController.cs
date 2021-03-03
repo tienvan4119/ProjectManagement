@@ -13,13 +13,13 @@ using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class ClientController : ControllerBase
     {
         private readonly ClientService _clientService;
-        private readonly UserManager<ApplicationUser> _userManager;
-        public ClientController(ClientService clientService, UserManager<ApplicationUser> userManager)
+        private readonly UserManager<User> _userManager;
+        public ClientController(ClientService clientService, UserManager<User> userManager)
         {
             _clientService = clientService;
             _userManager = userManager;
@@ -28,9 +28,32 @@ namespace ProjectManager.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddClient([FromBody] Client client)
         {
-            client.CreatedBy = User.Claims.First(_ => _.Type == "UserId").ToString();
+            client.CreatedBy = User.Claims.First(_ => _.Type == "UserId").Value;
+            client.Id = Guid.NewGuid().ToString();
             var result = await _clientService.InsertClient(client);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Client" }) : Ok(new Response { Status = "Success", Message = "Created new Client successfully" });
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Client>> GetClient(string id)
+        {
+            var client = await _clientService.GetClientById(id);
+            if (client == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response
+                {
+                    Status = "Error",
+                    Message = "Client not found"
+                });
+            }
+            return client;
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<ActionResult<List<Client>>> GetClients()
+        {
+            return await _clientService.GetClients();
         }
     }
 }

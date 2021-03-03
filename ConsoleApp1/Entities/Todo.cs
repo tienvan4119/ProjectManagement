@@ -22,7 +22,7 @@ namespace ProjectManager.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string AttachFile { get; set; }
-        public int AssignTo { get; set; }
+        public string AssignTo { get; set; }
         [Required(ErrorMessage = "Start date must be set")]
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

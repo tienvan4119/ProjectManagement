@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ProjectManager.Domain.Entities;
 using ProjectManager.Domain.Interface;
 
@@ -30,6 +32,16 @@ namespace ProjectManager.API.Services
         {
             _clientRepository.Add(client);
             return _unitOfWork.SaveChanges();
+        }
+
+        public async Task<ActionResult<Client>> GetClientById(string id)
+        {
+            return await _clientRepository.GetClientById(id);
+        }
+
+        public async Task<List<Client>> GetClients()
+        {
+            return await _clientRepository.GetClients();
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace ApplyJWT
+namespace ProjectManager.API
 {
     public class WeatherForecast
     {

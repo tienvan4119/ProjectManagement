@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProjectManager.Domain.Entities;
 using ProjectManager.Domain.Interface;
@@ -25,8 +26,19 @@ namespace ProjectManager.API.Services
 
         public Task<int> InsertProject(Project project)
         {
+            project.Id = Guid.NewGuid().ToString();
             _projectRepository.Add(project);
             return _unitOfWork.SaveChanges();
+        }
+
+        public Task<List<Project>> GetProjects()
+        {
+            return _projectRepository.GetProjects();
+        }
+
+        public Task<List<Todo>> GetTasks()
+        {
+            return _todoRepository.GetTasks();
         }
     }
 }

@@ -10,8 +10,8 @@ using ProjectManager.Infrastructure;
 namespace ProjectManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210302085847_InitData")]
-    partial class InitData
+    [Migration("20210303104518_ChangeSomeProperties")]
+    partial class ChangeSomeProperties
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -306,8 +306,8 @@ namespace ProjectManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AssignTo")
-                        .HasColumnType("int");
+                    b.Property<string>("AssignTo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AttachFile")
                         .HasColumnType("nvarchar(max)");
@@ -351,6 +351,21 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Todos");
+                });
+
+            modelBuilder.Entity("ProjectUser", b =>
+                {
+                    b.Property<string>("ProjectsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ProjectsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ProjectUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -420,6 +435,21 @@ namespace ProjectManager.Infrastructure.Migrations
                         .HasForeignKey("ProjectId");
 
                     b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("ProjectUser", b =>
+                {
+                    b.HasOne("ProjectManager.Domain.Entities.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectManager.Domain.Authentication.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectManager.Domain.Entities.Client", b =>

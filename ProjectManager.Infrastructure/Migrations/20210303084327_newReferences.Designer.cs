@@ -10,8 +10,8 @@ using ProjectManager.Infrastructure;
 namespace ProjectManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210302085847_InitData")]
-    partial class InitData
+    [Migration("20210303084327_newReferences")]
+    partial class newReferences
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -353,6 +353,27 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.ToTable("Todos");
                 });
 
+            modelBuilder.Entity("ProjectManager.Domain.Entities.UserProject", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProjectId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserProject");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -422,6 +443,26 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("ProjectManager.Domain.Entities.UserProject", b =>
+                {
+                    b.HasOne("ProjectManager.Domain.Entities.Project", "Project")
+                        .WithMany("UserProjects")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("ProjectManager.Domain.Authentication.User", "User")
+                        .WithMany("UserProject")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Project");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ProjectManager.Domain.Authentication.User", b =>
+                {
+                    b.Navigation("UserProject");
+                });
+
             modelBuilder.Entity("ProjectManager.Domain.Entities.Client", b =>
                 {
                     b.Navigation("Projects");
@@ -430,6 +471,8 @@ namespace ProjectManager.Infrastructure.Migrations
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
                     b.Navigation("Todos");
+
+                    b.Navigation("UserProjects");
                 });
 #pragma warning restore 612, 618
         }

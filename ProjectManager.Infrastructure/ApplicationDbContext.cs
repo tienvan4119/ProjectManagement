@@ -5,11 +5,12 @@ using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.Infrastructure
 {
-    public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext: IdentityDbContext<User>
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Todo> Todos { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
              

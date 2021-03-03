@@ -68,3 +68,7 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManag
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManager.Infrastructure.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\ProjectManager.Infrastructure.pdb
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\obj\Debug\net5.0\ProjectManager.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
