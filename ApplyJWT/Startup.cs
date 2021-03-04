@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +38,7 @@ namespace ProjectManager.API
             );
             //Entity Framework
             services.AddDbContext<ApplicationDbContext>(option =>
-                option.UseSqlServer(Configuration.GetConnectionString("ConStr")));
+                option.UseSqlServer(Configuration.GetConnectionString("ConStr")), ServiceLifetime.Transient);
             services.AddRepositories()
                     .AddServices();
 
@@ -76,7 +77,8 @@ namespace ProjectManager.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApplyJWT", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectManager.API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
         }
 
@@ -87,7 +89,7 @@ namespace ProjectManager.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApplyJWT v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManager.API v1"));
             }
 
             app.UseHttpsRedirection();

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
 using ProjectManager.Domain.Interface;
 
@@ -16,7 +18,6 @@ namespace ProjectManager.API.Services
         private readonly IProjectRepository _projectRepository;
         private readonly ITodoRepository _todoRepository;
         private readonly IClientRepository _clientRepository;
-
         public ClientService(IUnitOfWork unitOfWork
             , IProjectRepository projectRepository
             , ITodoRepository todoRepository
@@ -30,11 +31,15 @@ namespace ProjectManager.API.Services
 
         public Task<int> InsertClient(Client client)
         {
+            client.CreatedDate = DateTime.Now;
+            client.UpdatedBy = client.CreatedBy;
+            client.UpdatedDate = DateTime.Now;
+            ;
             _clientRepository.Add(client);
             return _unitOfWork.SaveChanges();
         }
 
-        public async Task<ActionResult<Client>> GetClientById(string id)
+        public async Task<Client> GetClientById(string id)
         {
             return await _clientRepository.GetClientById(id);
         }
@@ -42,6 +47,40 @@ namespace ProjectManager.API.Services
         public async Task<List<Client>> GetClients()
         {
             return await _clientRepository.GetClients();
+        }
+
+        public async Task<int> UpdateClient(string id, Client clientUpdate, string updatedBy)
+        {
+            //client.ApplyTo(clientUpdate);
+            // 1. Get client with id =  client.Id
+
+            // 2. Update client info
+
+            // 3. Call Repo update
+            var client = GetClientById(id);
+            if (clientUpdate.Address == null) { }
+            else
+            {
+                client.Result.Address = clientUpdate.Address;
+            }
+
+            if (clientUpdate.ClientName == null) { }
+
+            else
+            {
+                client.Result.ClientName = clientUpdate.ClientName;
+            }
+
+            if (clientUpdate.Phone == null) { }
+
+            else
+            {
+                client.Result.Phone = clientUpdate.Phone;
+            }
+            client.Result.UpdatedDate = DateTime.Now;
+            client.Result.UpdatedBy = updatedBy;
+            _clientRepository.Update(client.Result);
+            return await _unitOfWork.SaveChanges();
         }
     }
 }

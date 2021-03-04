@@ -72,3 +72,4 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Microsoft.As
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\AutoMapper.dll

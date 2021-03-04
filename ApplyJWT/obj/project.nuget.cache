@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uq5iydU9YZaLHB5EuJxkajdxL3plWOKnCh+71W0eH6VyVFIwkhGcO0J+5b00mv/v0w/h213MUXd3qOW2bEu0WQ==",
+  "dgSpecHash": "By4CIfQb58H9hfyPlwIETBRipuqJtaw7WYEXAYcyD0HmLQ9rvYlTyOGT9dEeYa1Fn7kLytIhKpOQX6F6daa6Tg==",
   "success": true,
   "projectFilePath": "C:\\Users\\van.nguyen\\source\\repos\\ApplyJWT\\ApplyJWT\\ProjectManager.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\van.nguyen\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.3\\microsoft.aspnetcore.authentication.jwtbearer.5.0.3.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.3\\microsoft.aspnetcore.cryptography.internal.5.0.3.nupkg.sha512",
@@ -78,7 +79,7 @@
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\van.nguyen\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\van.nguyen\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",

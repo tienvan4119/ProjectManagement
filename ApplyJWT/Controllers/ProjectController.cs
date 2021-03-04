@@ -27,6 +27,7 @@ namespace ProjectManager.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProject([FromBody] Project project)
         {
+            project.CreatedBy = User.Claims.First(_ => _.Type.Equals("UserId")).Value;
             var result= await _projectService.InsertProject(project);
             if (result == 0)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Project" });

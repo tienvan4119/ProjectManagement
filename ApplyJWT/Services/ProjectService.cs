@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using ProjectManager.Domain.Entities;
 using ProjectManager.Domain.Interface;
 
@@ -27,6 +28,8 @@ namespace ProjectManager.API.Services
         public Task<int> InsertProject(Project project)
         {
             project.Id = Guid.NewGuid().ToString();
+            project.CreatedDate = DateTime.Now;
+            project.UpdatedDate = DateTime.Now;
             _projectRepository.Add(project);
             return _unitOfWork.SaveChanges();
         }

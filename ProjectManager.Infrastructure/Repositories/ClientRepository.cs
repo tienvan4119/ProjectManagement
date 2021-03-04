@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using ProjectManager.Domain.Interface;
 
 namespace ProjectManager.Infrastructure.Repositories
 {
-    public class ClientRepository: Repository<Client>, IClientRepository
+    public class ClientRepository : Repository<Client>, IClientRepository
     {
         public ClientRepository(DbFactory dbFactory) : base(dbFactory)
         {
@@ -19,9 +20,9 @@ namespace ProjectManager.Infrastructure.Repositories
             return Entities.FirstAsync(e => e.Id.Equals(id));
         }
 
-        public Task<List<Client>> GetClients()
+        public async Task<List<Client>> GetClients()
         {
-            return Entities.ToListAsync();
+            return Entities.Where(_=>_.IsDeleted == false).ToList();
         }
     }
 }

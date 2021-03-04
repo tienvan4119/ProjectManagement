@@ -23,7 +23,7 @@ namespace ProjectManager.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

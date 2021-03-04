@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectManager.Domain.Interface;
 
@@ -36,11 +37,13 @@ namespace ProjectManager.Infrastructure
         public void Update(T entity)
         {
             Entities.Update(entity);
+            //_dbFactory.DbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public List<T> GetAll()
         {
             return Entities.ToList();
         }
+
     }
 }
