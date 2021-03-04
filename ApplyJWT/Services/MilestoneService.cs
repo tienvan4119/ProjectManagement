@@ -23,6 +23,8 @@ namespace ProjectManager.API.Services
 
         public Task<int> InsertMilestone(Milestone milestone)
         {
+            milestone.Id = Guid.NewGuid().ToString();
+            milestone.CreatedDate = DateTime.Now;
             _milestoneRepository.Add(milestone);
             return _unitOfWork.SaveChanges();
         }

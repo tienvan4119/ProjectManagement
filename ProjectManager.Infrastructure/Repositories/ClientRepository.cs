@@ -20,9 +20,9 @@ namespace ProjectManager.Infrastructure.Repositories
             return Entities.FirstAsync(e => e.Id.Equals(id));
         }
 
-        public async Task<List<Client>> GetClients()
+        public Task<List<Client>> GetClients()
         {
-            return Entities.Where(_=>_.IsDeleted == false).ToList();
+            return Entities.Where(_=>_.IsDeleted == false).ToListAsync();
         }
     }
 }

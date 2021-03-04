@@ -12,7 +12,7 @@ using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.API.Controllers
 {
-    [Authorize("Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MilestoneController : ControllerBase
@@ -48,6 +48,7 @@ namespace ProjectManager.API.Controllers
         [HttpPost]
         public async Task<ActionResult> AddMilestone([FromBody] Milestone milestone)
         {
+            milestone.CreatedBy = User.Claims.First(_ => _.Type.Equals("UserId")).Value;
             var result = await _milestoneService.InsertMilestone(milestone);
             if (result == 0)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response

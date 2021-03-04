@@ -21,5 +21,6 @@ namespace ProjectManager.Domain.Entities
         public string ProjectId { get; set; }
         [ForeignKey(nameof(ProjectId))]
         public virtual Project Project { get; set; }
+
     }
 }
