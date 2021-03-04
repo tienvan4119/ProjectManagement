@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProjectManager.Domain.Entities;
+using ProjectManager.Infrastructure.Base.Interface;
 
-namespace ProjectManager.Domain.Interface
+namespace ProjectManager.Infrastructure.Interface
 {
     public interface IClientRepository: IRepository<Client>
     {

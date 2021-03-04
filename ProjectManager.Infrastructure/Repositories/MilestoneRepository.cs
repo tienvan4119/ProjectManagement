@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure.Base.Repository;
+using ProjectManager.Infrastructure.Interface;
 
 namespace ProjectManager.Infrastructure.Repositories
 {

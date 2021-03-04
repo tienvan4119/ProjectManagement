@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using ProjectManager.API.Services;
+using Newtonsoft.Json;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
-using Newtonsoft.Json;
+
 namespace ProjectManager.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Route("api/[controller]")]
+    [Authorize(Roles = "Manager")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class MilestoneController : ControllerBase
     {

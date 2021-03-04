@@ -11,10 +11,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using ProjectManager.API.Extensions;
+using ProjectManager.Domain;
 using ProjectManager.Domain.Authentication;
-using ProjectManager.Domain.Interface;
 using ProjectManager.Infrastructure;
+using ProjectManager.Infrastructure.Base.Interface;
+using ProjectManager.Infrastructure.Base.Repository;
 
 namespace ProjectManager.API
 {
@@ -28,14 +31,19 @@ namespace ProjectManager.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-       
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(c =>
+                {
+                    c.SerializerSettings.Converters.Add(new StringEnumConverter());
+                });
+            
+
             //Entity Framework
             services.AddDbContext<ApplicationDbContext>(option =>
                 option.UseSqlServer(Configuration.GetConnectionString("ConStr")), ServiceLifetime.Transient);
@@ -80,6 +88,7 @@ namespace ProjectManager.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectManager.API", Version = "v1" });
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
+            services.AddSwaggerGenNewtonsoftSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,18 +97,21 @@ namespace ProjectManager.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManager.API v1"));
-            }
+                app.UseSwagger(c =>
+                {
+                    c.SerializeAsV2 = true;
+                });
+            };
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectManager.API v1"));
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             //Authentication & Authorization
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

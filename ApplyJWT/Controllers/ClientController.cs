@@ -15,7 +15,7 @@ using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manager")]
     [Route("api/[controller]s")]
     [ApiController]
     public class ClientController : ControllerBase
@@ -91,14 +91,7 @@ namespace ProjectManager.API.Controllers
         {
             try
             {
-                if (await _clientService.DeleteClient(id) != 0)
-                {
-                    return Ok(new Response { Status = "Success", Message = "Deleted Client successfully" });
-                }
-                else
-                {
-                    return Ok(new Response { Status = "Error", Message = "Can not find this Client" });
-                }
+                return Ok(await _clientService.DeleteClient(id) != 0 ? new Response { Status = "Success", Message = "Deleted Client successfully" } : new Response { Status = "Error", Message = "Can not find this Client" });
             }
             catch (Exception)
             {

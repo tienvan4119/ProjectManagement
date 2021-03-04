@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ProjectManager.Domain.Interface
+namespace ProjectManager.Infrastructure.Base.Interface
 {
     public interface IUnitOfWork
     {

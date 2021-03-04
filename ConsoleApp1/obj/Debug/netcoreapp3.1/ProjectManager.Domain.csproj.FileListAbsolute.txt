@@ -1,11 +1,12 @@
+C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.AssemblyInfoInputs.cache
+C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.AssemblyInfo.cs
+C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.csproj.CoreCompileInputs.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\bin\Debug\netcoreapp3.1\ProjectManager.Domain.deps.json
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\bin\Debug\netcoreapp3.1\ProjectManager.Domain.runtimeconfig.json
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\bin\Debug\netcoreapp3.1\ProjectManager.Domain.runtimeconfig.dev.json
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\bin\Debug\netcoreapp3.1\ProjectManager.Domain.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\bin\Debug\netcoreapp3.1\ProjectManager.Domain.pdb
-C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.AssemblyInfoInputs.cache
-C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.AssemblyInfo.cs
-C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.csproj.CoreCompileInputs.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.pdb
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.genruntimeconfig.cache
+C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.csprojAssemblyReference.cache

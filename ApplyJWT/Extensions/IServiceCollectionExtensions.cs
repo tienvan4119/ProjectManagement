@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectManager.API.Services;
-using ProjectManager.Domain.Interface;
-using ProjectManager.Infrastructure;
+using ProjectManager.Infrastructure.Interface;
+using ProjectManager.Infrastructure.Base.Interface;
+using ProjectManager.Infrastructure.Base.Repository;
 using ProjectManager.Infrastructure.Repositories;
 
 namespace ProjectManager.API.Extensions

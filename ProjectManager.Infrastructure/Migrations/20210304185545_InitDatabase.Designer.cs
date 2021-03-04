@@ -10,8 +10,8 @@ using ProjectManager.Infrastructure;
 namespace ProjectManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210304040419_AddMilestone")]
-    partial class AddMilestone
+    [Migration("20210304185545_InitDatabase")]
+    partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -278,12 +278,14 @@ namespace ProjectManager.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProjectId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -469,7 +471,9 @@ namespace ProjectManager.Infrastructure.Migrations
                 {
                     b.HasOne("ProjectManager.Domain.Entities.Project", "Project")
                         .WithMany("Milestones")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
                 });

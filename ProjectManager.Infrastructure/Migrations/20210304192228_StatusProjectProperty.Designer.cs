@@ -10,8 +10,8 @@ using ProjectManager.Infrastructure;
 namespace ProjectManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210302085847_InitData")]
-    partial class InitData
+    [Migration("20210304192228_StatusProjectProperty")]
+    partial class StatusProjectProperty
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -253,6 +253,54 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("ProjectManager.Domain.Entities.Milestone", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AssignedTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Milestones");
+                });
+
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
                     b.Property<string>("Id")
@@ -284,8 +332,8 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -306,8 +354,8 @@ namespace ProjectManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AssignTo")
-                        .HasColumnType("int");
+                    b.Property<string>("AssignTo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AttachFile")
                         .HasColumnType("nvarchar(max)");
@@ -351,6 +399,21 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Todos");
+                });
+
+            modelBuilder.Entity("ProjectUser", b =>
+                {
+                    b.Property<string>("ProjectsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ProjectsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ProjectUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,6 +467,17 @@ namespace ProjectManager.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProjectManager.Domain.Entities.Milestone", b =>
+                {
+                    b.HasOne("ProjectManager.Domain.Entities.Project", "Project")
+                        .WithMany("Milestones")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
                     b.HasOne("ProjectManager.Domain.Entities.Client", "Client")
@@ -422,6 +496,21 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("ProjectUser", b =>
+                {
+                    b.HasOne("ProjectManager.Domain.Entities.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectManager.Domain.Authentication.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ProjectManager.Domain.Entities.Client", b =>
                 {
                     b.Navigation("Projects");
@@ -429,6 +518,8 @@ namespace ProjectManager.Infrastructure.Migrations
 
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
+                    b.Navigation("Milestones");
+
                     b.Navigation("Todos");
                 });
 #pragma warning restore 612, 618

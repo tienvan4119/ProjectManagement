@@ -10,8 +10,8 @@ using ProjectManager.Infrastructure;
 namespace ProjectManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210303085808_SecondReference")]
-    partial class SecondReference
+    [Migration("20210304195710_backToStatusBool")]
+    partial class backToStatusBool
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -253,6 +253,54 @@ namespace ProjectManager.Infrastructure.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("ProjectManager.Domain.Entities.Milestone", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AssignedTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Milestones");
+                });
+
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
                     b.Property<string>("Id")
@@ -306,8 +354,8 @@ namespace ProjectManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AssignTo")
-                        .HasColumnType("int");
+                    b.Property<string>("AssignTo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AttachFile")
                         .HasColumnType("nvarchar(max)");
@@ -419,6 +467,17 @@ namespace ProjectManager.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProjectManager.Domain.Entities.Milestone", b =>
+                {
+                    b.HasOne("ProjectManager.Domain.Entities.Project", "Project")
+                        .WithMany("Milestones")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
                     b.HasOne("ProjectManager.Domain.Entities.Client", "Client")
@@ -459,6 +518,8 @@ namespace ProjectManager.Infrastructure.Migrations
 
             modelBuilder.Entity("ProjectManager.Domain.Entities.Project", b =>
                 {
+                    b.Navigation("Milestones");
+
                     b.Navigation("Todos");
                 });
 #pragma warning restore 612, 618

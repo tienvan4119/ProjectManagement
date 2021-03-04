@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure.Interface;
+using ProjectManager.Infrastructure.Base.Interface;
 
 namespace ProjectManager.API.Services
 {
@@ -35,6 +31,7 @@ namespace ProjectManager.API.Services
             client.UpdatedBy = client.CreatedBy;
             client.UpdatedDate = DateTime.Now;
             ;
+            client.IsDeleted = false;
             _clientRepository.Add(client);
             return _unitOfWork.SaveChanges();
         }

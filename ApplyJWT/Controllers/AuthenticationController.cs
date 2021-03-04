@@ -31,7 +31,7 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
+        [Route("RegisterMember")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExist = await _userManager.FindByNameAsync(model.UserName);
@@ -48,15 +48,15 @@ namespace ProjectManager.API.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = $"{result.Errors.ToList()[0].Code}", Message = $"{result.Errors.ToList()[0].Description}" });
-            if (await _roleManager.RoleExistsAsync("User"))
+            if (await _roleManager.RoleExistsAsync("Member"))
             {
-                await _userManager.AddToRolesAsync(user, new List<string>() { "User" });
+                await _userManager.AddToRolesAsync(user, new List<string>() { "Member" });
             }
-            return Ok(new Response { Status = "Success", Message = "User Created Successfully" });
+            return Ok(new Response { Status = "Success", Message = "Member Created Successfully" });
         }
 
         [HttpPost]
-        [Route("RegisterAdmin")]
+        [Route("RegisterManager")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
         {
             var userExist = await _userManager.FindByNameAsync(model.UserName);
@@ -74,18 +74,18 @@ namespace ProjectManager.API.Controllers
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = $"{result.Errors.ToList()[0].Code}", Message = $"{result.Errors.ToList()[0].Description}" });
 
-            if (!await _roleManager.RoleExistsAsync("Admin"))
-                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            if (!await _roleManager.RoleExistsAsync("Manager"))
+                await _roleManager.CreateAsync(new IdentityRole("Manager"));
 
-            if (!await _roleManager.RoleExistsAsync("User"))
-                await _roleManager.CreateAsync(new IdentityRole("User"));
+            if (!await _roleManager.RoleExistsAsync("Member"))
+                await _roleManager.CreateAsync(new IdentityRole("Member"));
 
-            if (await _roleManager.RoleExistsAsync("Admin"))
+            if (await _roleManager.RoleExistsAsync("Manager"))
             {
-                await _userManager.AddToRolesAsync(user, new List<string>() { "Admin" });
+                await _userManager.AddToRolesAsync(user, new List<string>() { "Manager" });
             }
 
-            return Ok(new Response { Status = "Success", Message = "User Created Successfully" });
+            return Ok(new Response { Status = "Success", Message = "Manager Created Successfully" });
         }
 
         [HttpPost]

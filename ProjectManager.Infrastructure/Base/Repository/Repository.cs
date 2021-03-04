@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure.Base.Interface;
 
-namespace ProjectManager.Infrastructure
+namespace ProjectManager.Infrastructure.Base.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

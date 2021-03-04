@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure.Interface;
+using ProjectManager.Infrastructure.Base.Interface;
 
 namespace ProjectManager.API.Services
 {

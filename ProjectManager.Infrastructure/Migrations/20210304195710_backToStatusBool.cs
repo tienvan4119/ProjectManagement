@@ -2,15 +2,15 @@
 
 namespace ProjectManager.Infrastructure.Migrations
 {
-    public partial class ChangeSomeProperties : Migration
+    public partial class backToStatusBool : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "AssignTo",
-                table: "Todos",
-                type: "nvarchar(max)",
-                nullable: true,
+            migrationBuilder.AlterColumn<bool>(
+                name: "Status",
+                table: "Projects",
+                type: "bit",
+                nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int");
         }
@@ -18,14 +18,12 @@ namespace ProjectManager.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "AssignTo",
-                table: "Todos",
+                name: "Status",
+                table: "Projects",
                 type: "int",
                 nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                oldClrType: typeof(bool),
+                oldType: "bit");
         }
     }
 }

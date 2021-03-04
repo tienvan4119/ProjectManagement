@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "By4CIfQb58H9hfyPlwIETBRipuqJtaw7WYEXAYcyD0HmLQ9rvYlTyOGT9dEeYa1Fn7kLytIhKpOQX6F6daa6Tg==",
+  "dgSpecHash": "ofCe/G+ygWJ7L1id0vx31hy/qCRnNqqwU6k5fpi8pzzfweEmcMSO1LJrBedYnfnRv1ZiRC1CjIwHfwfZpcPXTA==",
   "success": true,
   "projectFilePath": "C:\\Users\\van.nguyen\\source\\repos\\ApplyJWT\\ApplyJWT\\ProjectManager.API.csproj",
   "expectedPackageFiles": [
@@ -49,8 +49,9 @@
     "C:\\Users\\van.nguyen\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
-    "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
-    "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore.newtonsoft\\6.0.7\\swashbuckle.aspnetcore.newtonsoft.6.0.7.nupkg.sha512",
+    "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.0.7\\swashbuckle.aspnetcore.swagger.6.0.7.nupkg.sha512",
+    "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.0.7\\swashbuckle.aspnetcore.swaggergen.6.0.7.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\van.nguyen\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectManager.Infrastructure;
 
-namespace ProjectManager.Domain.Migrations
+namespace ProjectManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -276,12 +276,14 @@ namespace ProjectManager.Domain.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProjectId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -467,7 +469,9 @@ namespace ProjectManager.Domain.Migrations
                 {
                     b.HasOne("ProjectManager.Domain.Entities.Project", "Project")
                         .WithMany("Milestones")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
                 });

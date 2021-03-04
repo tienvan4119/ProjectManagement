@@ -1,3 +1,7 @@
+C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.AssemblyInfo.cs
+C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.csprojAssemblyReference.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debug\netcoreapp3.1\ProjectManager.Infrastructure.deps.json
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debug\netcoreapp3.1\ProjectManager.Infrastructure.runtimeconfig.json
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debug\netcoreapp3.1\ProjectManager.Infrastructure.runtimeconfig.dev.json
@@ -5,10 +9,6 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debu
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debug\netcoreapp3.1\ProjectManager.Infrastructure.pdb
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debug\netcoreapp3.1\ProjectManager.Domain.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\bin\Debug\netcoreapp3.1\ProjectManager.Domain.pdb
-C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.csprojAssemblyReference.cache
-C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.AssemblyInfoInputs.cache
-C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.AssemblyInfo.cs
-C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.csproj.CopyComplete
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ProjectManager.Infrastructure\obj\Debug\netcoreapp3.1\ProjectManager.Infrastructure.pdb

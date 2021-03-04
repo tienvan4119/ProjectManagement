@@ -6,35 +6,36 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using ProjectManager.API.Services;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.API.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
+    [Authorize(Roles = "Manager, Member")]
     [Route("api/[controller]s")]
     [ApiController]
     public class ProjectController : ControllerBase
     {
         private readonly ProjectService _projectService;
+        private readonly UserManager<User> _userManager;
 
-        public ProjectController(ProjectService projectService)
+        public ProjectController(ProjectService projectService, UserManager<User> userManager)
         {
             _projectService = projectService;
+            _userManager = userManager;
         }
 
         #region Project
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<ActionResult> AddProject([FromBody] Project project)
         {
             project.CreatedBy = User.Claims.First(_ => _.Type.Equals("UserId")).Value;
             var result = await _projectService.InsertProject(project);
-            if (result == 0)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Project" });
-            return Ok(new Response { Status = "Success", Message = "Created new project successfully" });
+            return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Project" }) : Ok(new Response { Status = "Success", Message = "Created new project successfully" });
         }
 
         [HttpGet]
@@ -43,7 +44,7 @@ namespace ProjectManager.API.Controllers
             var currentUserId = User.Claims.First(_ => _.Type == "UserId").Value;
             var projects = await _projectService.GetProjects();
 
-            return User.IsInRole("User") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
+            return User.IsInRole("Member") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
         }
         #endregion
 

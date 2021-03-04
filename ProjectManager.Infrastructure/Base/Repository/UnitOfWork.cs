@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure.Base.Interface;
 
-namespace ProjectManager.Infrastructure
+namespace ProjectManager.Infrastructure.Base.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

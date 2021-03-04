@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Domain.Interface;
+using ProjectManager.Infrastructure.Interface;
+using ProjectManager.Infrastructure.Base.Interface;
 
 namespace ProjectManager.API.Services
 {
-    public class ProjectService
+    public class ProjectService 
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProjectRepository _projectRepository;
@@ -30,10 +34,7 @@ namespace ProjectManager.API.Services
             project.Id = Guid.NewGuid().ToString();
             project.CreatedDate = DateTime.Now;
             project.UpdatedDate = DateTime.Now;
-            if (project.Status)
-            {
-                
-            }
+            project.Status = true;
             _projectRepository.Add(project);
             return _unitOfWork.SaveChanges();
         }

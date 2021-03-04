@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace ProjectManager.Domain.Base
+namespace ProjectManager.Domain
 {
     public interface IEntityBase<TKey>
     {
