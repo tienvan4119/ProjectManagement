@@ -28,5 +28,18 @@ namespace ProjectManager.API.Services
             _milestoneRepository.Add(milestone);
             return _unitOfWork.SaveChanges();
         }
+
+        public Task<Milestone> GetMilestoneById(string milestoneId)
+        {
+            return _milestoneRepository.FindMilestoneById(milestoneId);
+        }
+
+        public Task<int> AssignMilestone(string milestoneId, string assignedUserId)
+        {
+            var milestone = _milestoneRepository.FindMilestoneById(milestoneId);
+            milestone.Result.AssignedTo = assignedUserId;
+            _milestoneRepository.Update(milestone.Result);
+            return _unitOfWork.SaveChanges();
+        }
     }
 }

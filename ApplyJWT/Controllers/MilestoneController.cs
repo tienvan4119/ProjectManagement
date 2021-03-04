@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using ProjectManager.API.Services;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
-
+using Newtonsoft.Json;
 namespace ProjectManager.API.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -60,6 +60,41 @@ namespace ProjectManager.API.Controllers
             {
                 Status = "Success",
                 Message = "Created Milestone successfully"
+            });
+        }
+
+        [HttpPost("AssignTo/{id}")]
+        public async Task<ActionResult> AssignMilestone(string id, [FromBody] string assignedUserId)
+        {
+            if (_userManager.FindByIdAsync(assignedUserId) == null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new Response
+                {
+                    Status = "Error 404",
+                    Message = "Failed when find User to assign"
+                });
+            }
+
+            var result = await _milestoneService.AssignMilestone(id, assignedUserId);
+            return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response
+            {
+                Status = "Error",
+                Message = "Failed to assign Member to this Milestone"
+            }) : StatusCode(StatusCodes.Status200OK, new Response
+            {
+                Status = "Success",
+                Message = "Assign Milestone to member successfully"
+            });
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<Milestone>> GetMilestoneById(string id)
+        {
+            var milestone = await _milestoneService.GetMilestoneById(id);
+            return (ActionResult<Milestone>) milestone ?? StatusCode(StatusCodes.Status200OK, new Response
+            {
+                Status = "Error 404",
+                Message = "Failed to get Milestone detail"
             });
         }
     }
