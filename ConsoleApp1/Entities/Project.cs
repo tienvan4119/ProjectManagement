@@ -24,5 +24,6 @@ namespace ProjectManager.Domain.Entities
         public Client Client { get; set; }
         public virtual ICollection<Todo> Todos { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Milestone> Milestones { get; set; }
     }
 }

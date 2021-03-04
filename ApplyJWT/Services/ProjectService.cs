@@ -30,6 +30,10 @@ namespace ProjectManager.API.Services
             project.Id = Guid.NewGuid().ToString();
             project.CreatedDate = DateTime.Now;
             project.UpdatedDate = DateTime.Now;
+            if (project.Status)
+            {
+                
+            }
             _projectRepository.Add(project);
             return _unitOfWork.SaveChanges();
         }
@@ -37,6 +41,11 @@ namespace ProjectManager.API.Services
         public Task<List<Project>> GetProjects()
         {
             return _projectRepository.GetProjects();
+        }
+
+        public Task<Project> GetProjectById(string projectId)
+        {
+            return _projectRepository.GetProjectById(projectId);
         }
 
         public Task<List<Todo>> GetTasks()

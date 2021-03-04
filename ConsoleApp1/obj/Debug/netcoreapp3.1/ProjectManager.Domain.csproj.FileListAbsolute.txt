@@ -9,3 +9,4 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\Pr
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.pdb
 C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.genruntimeconfig.cache
+C:\Users\van.nguyen\source\repos\ApplyJWT\ConsoleApp1\obj\Debug\netcoreapp3.1\ProjectManager.Domain.csprojAssemblyReference.cache

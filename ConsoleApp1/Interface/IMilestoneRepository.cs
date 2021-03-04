@@ -6,9 +6,8 @@ using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.Domain.Interface
 {
-    public interface IProjectRepository: IRepository<Project>
+    public interface IMilestoneRepository : IRepository<Milestone>
     {
-        Task<List<Project>> GetProjects();
-        Task<Project> GetProjectById(string projectId);
+        Task<List<Milestone>> GetMilestones(string projectId);
     }
 }

@@ -17,14 +17,16 @@ namespace ProjectManager.API.Extensions
                 .AddScoped(typeof(IRepository<>), typeof(Repository<>))
                 .AddScoped<IProjectRepository, ProjectRepository>()
                 .AddScoped<ITodoRepository, TodoRepository>()
-                .AddScoped<IClientRepository, ClientRepository>();
+                .AddScoped<IClientRepository, ClientRepository>()
+                .AddScoped<IMilestoneRepository, MilestoneRepository>();
         }
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             return services
                 .AddScoped<ProjectService>()
-                .AddScoped<ClientService>();
+                .AddScoped<ClientService>()
+                .AddScoped<MilestoneService>();
         }
     }
 }

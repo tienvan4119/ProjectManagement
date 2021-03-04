@@ -23,15 +23,18 @@ namespace ProjectManager.API.Controllers
         {
             _projectService = projectService;
         }
+
+        #region Project
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> AddProject([FromBody] Project project)
+        public async Task<ActionResult> AddProject([FromBody] Project project)
         {
             project.CreatedBy = User.Claims.First(_ => _.Type.Equals("UserId")).Value;
-            var result= await _projectService.InsertProject(project);
+            var result = await _projectService.InsertProject(project);
             if (result == 0)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Project" });
-            return Ok(new Response {Status = "Success", Message = "Created new project successfully"});
+            return Ok(new Response { Status = "Success", Message = "Created new project successfully" });
         }
 
         [HttpGet]
@@ -42,6 +45,9 @@ namespace ProjectManager.API.Controllers
 
             return User.IsInRole("User") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
         }
+        #endregion
+
+        #region Task
 
         [HttpGet]
         public async Task<List<Todo>> GetTasks()
@@ -50,5 +56,8 @@ namespace ProjectManager.API.Controllers
             var tasks = await _projectService.GetTasks();
             return User.IsInRole("User") ? tasks.Where(_ => _.CreatedBy != null && (_.AssignTo.Equals(currentUserId) || _.CreatedBy.Equals(currentUserId))).ToList() : tasks;
         }
+
+        #endregion
+
     }
 }
