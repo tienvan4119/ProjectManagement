@@ -45,9 +45,9 @@ namespace ProjectManager.API.Controllers
             var client = await _clientService.GetClientById(id);
             if (client == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound, new Response
+                return StatusCode(StatusCodes.Status200OK, new Response
                 {
-                    Status = "Error",
+                    Status = "Error 404",
                     Message = "Client not found"
                 });
             }
@@ -87,13 +87,18 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpDelete("{id}")]
-
         public async Task<ActionResult> DeleteClient(string id)
         {
             try
             {
-                await _clientService.DeleteClient(id);
-                return Ok(new Response {Status = "Success", Message = "Updated Client successfully"});
+                if (await _clientService.DeleteClient(id) != 0)
+                {
+                    return Ok(new Response { Status = "Success", Message = "Deleted Client successfully" });
+                }
+                else
+                {
+                    return Ok(new Response { Status = "Error", Message = "Can not find this Client" });
+                }
             }
             catch (Exception)
             {

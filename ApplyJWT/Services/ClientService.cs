@@ -82,5 +82,13 @@ namespace ProjectManager.API.Services
             _clientRepository.Update(client.Result);
             return await _unitOfWork.SaveChanges();
         }
+
+        public async Task<int> DeleteClient(string id)
+        {
+            var client = GetClientById(id);
+            client.Result.IsDeleted = true;
+            _clientRepository.Update(client.Result);
+            return await _unitOfWork.SaveChanges();
+        }
     }
 }
