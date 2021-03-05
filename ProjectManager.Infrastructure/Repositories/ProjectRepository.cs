@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Infrastructure.Base.Repository;
-using ProjectManager.Infrastructure.Interface;
+using ProjectManager.Infrastructure.Base.Repositories;
+using ProjectManager.Infrastructure.Interfaces;
 
 namespace ProjectManager.Infrastructure.Repositories
 {
@@ -17,13 +17,15 @@ namespace ProjectManager.Infrastructure.Repositories
         public Task<List<Project>> GetProjects()
         {
             Entities.Include(_ => _.Users).ToListAsync();
-            Entities.Include(_ => _.Todos).ToListAsync();
+            Entities.Include(_ => _.Tasks).ToListAsync();
             Entities.Include(_ => _.Milestones).ToListAsync();
+            Entities.Include(_ => _.Users).ToListAsync();
             return Entities.ToListAsync();
         }
 
         public Task<Project> GetProjectById(string projectId)
         {
+            Entities.Include(_ => _.Users).ToListAsync();
             return Entities.FirstAsync(_ => _.Id.Equals(projectId));
         }
     }

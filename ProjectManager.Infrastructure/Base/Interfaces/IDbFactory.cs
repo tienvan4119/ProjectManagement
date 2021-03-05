@@ -1,4 +1,4 @@
-﻿namespace ProjectManager.Infrastructure.Base.Interface
+﻿namespace ProjectManager.Infrastructure.Base.Interfaces
 {
     public interface IDbFactory<TKey> : IDbFactory
     {

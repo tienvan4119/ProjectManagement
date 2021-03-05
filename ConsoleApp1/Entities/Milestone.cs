@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ProjectManager.Domain.Entities
 {
     [Table("Milestones")]
-    public class Milestone : AuditEntity<string>
+    public partial class Milestone : AuditEntity<string>
     {
         [Required(ErrorMessage = "Title can not be null")]
         public string Title { get; set; }

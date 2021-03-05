@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectManager.API.Services;
-using ProjectManager.Infrastructure.Interface;
-using ProjectManager.Infrastructure.Base.Interface;
-using ProjectManager.Infrastructure.Base.Repository;
+using ProjectManager.Infrastructure.Base.Interfaces;
+using ProjectManager.Infrastructure.Base.Repositories;
+using ProjectManager.Infrastructure.Interfaces;
 using ProjectManager.Infrastructure.Repositories;
 
 namespace ProjectManager.API.Extensions
@@ -27,7 +27,8 @@ namespace ProjectManager.API.Extensions
             return services
                 .AddScoped<ProjectService>()
                 .AddScoped<ClientService>()
-                .AddScoped<MilestoneService>();
+                .AddScoped<MilestoneService>()
+                .AddScoped<TaskService>();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ProjectManager.API.Controllers
         public async Task<IActionResult> AddClient([FromBody] Client client)
         {
             client.CreatedBy = User.Claims.First(_ => _.Type == "UserId").Value;
-            client.Id = Guid.NewGuid().ToString();
+            
             var result = await _clientService.InsertClient(client);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Client" }) : Ok(new Response { Status = "Success", Message = "Created new Client successfully" });
         }

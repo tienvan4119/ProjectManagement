@@ -16,8 +16,8 @@ using ProjectManager.API.Extensions;
 using ProjectManager.Domain;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Infrastructure;
-using ProjectManager.Infrastructure.Base.Interface;
-using ProjectManager.Infrastructure.Base.Repository;
+using ProjectManager.Infrastructure.Base.Interfaces;
+using ProjectManager.Infrastructure.Base.Repositories;
 
 namespace ProjectManager.API
 {

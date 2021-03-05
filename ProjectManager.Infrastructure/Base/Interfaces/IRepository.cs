@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectManager.Infrastructure.Base.Interface
+namespace ProjectManager.Infrastructure.Base.Interfaces
 {
     public interface IRepository<T> where T : class
     {
@@ -8,5 +8,6 @@ namespace ProjectManager.Infrastructure.Base.Interface
         void Delete(T entity);
         void Update(T entity); 
         List<T> GetAll();
+        void Attach(T entity);
     }
 }

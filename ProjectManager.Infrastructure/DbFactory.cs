@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using ProjectManager.Domain;
-using ProjectManager.Infrastructure.Base.Interface;
 
 namespace ProjectManager.Infrastructure
 {

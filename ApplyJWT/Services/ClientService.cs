@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Infrastructure.Interface;
-using ProjectManager.Infrastructure.Base.Interface;
+using ProjectManager.Infrastructure.Base.Interfaces;
+using ProjectManager.Infrastructure.Interfaces;
 
 namespace ProjectManager.API.Services
 {
@@ -27,10 +27,10 @@ namespace ProjectManager.API.Services
 
         public Task<int> InsertClient(Client client)
         {
+            client.Id = Guid.NewGuid().ToString();
             client.CreatedDate = DateTime.Now;
             client.UpdatedBy = client.CreatedBy;
             client.UpdatedDate = DateTime.Now;
-            ;
             client.IsDeleted = false;
             _clientRepository.Add(client);
             return _unitOfWork.SaveChanges();

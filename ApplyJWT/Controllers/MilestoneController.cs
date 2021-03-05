@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using ProjectManager.API.Services;
-using Newtonsoft.Json;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
 
@@ -18,13 +16,13 @@ namespace ProjectManager.API.Controllers
     [ApiController]
     public class MilestoneController : ControllerBase
     {
-        private readonly ClientService _clientService;
         private readonly UserManager<User> _userManager;
         private readonly ProjectService _projectService;
         private readonly MilestoneService _milestoneService;
-        public MilestoneController(ClientService clientService, UserManager<User> userManager, ProjectService projectService, MilestoneService milestoneService)
+        public MilestoneController(UserManager<User> userManager
+            , ProjectService projectService
+            , MilestoneService milestoneService)
         {
-            _clientService = clientService;
             _userManager = userManager;
             _projectService = projectService;
             _milestoneService = milestoneService;

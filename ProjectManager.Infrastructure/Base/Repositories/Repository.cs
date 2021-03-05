@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using ProjectManager.Infrastructure.Base.Interface;
+using ProjectManager.Infrastructure.Base.Interfaces;
 
-namespace ProjectManager.Infrastructure.Base.Repository
+namespace ProjectManager.Infrastructure.Base.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -42,5 +42,9 @@ namespace ProjectManager.Infrastructure.Base.Repository
             return Entities.ToList();
         }
 
+        public void Attach(T entity)
+        {
+            Entities.Attach(entity);
+        }
     }
 }
