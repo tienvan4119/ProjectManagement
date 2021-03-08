@@ -32,10 +32,10 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Project>> GetProjects()
+        public async Task<List<Project>> GetProjects([FromHeader(Name = "Status")] string status)
         {
             var currentUserId = User.Claims.First(_ => _.Type == "UserId").Value;
-            var projects = await _projectService.GetProjects();
+            var projects = await _projectService.GetProjects(status);
 
             return User.IsInRole("Member") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
         }

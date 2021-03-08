@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ProjectManager.Infrastructure.Migrations
+namespace ProjectManager.Domain.Migrations
 {
     public partial class InitDatabase : Migration
     {

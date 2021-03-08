@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
 
-namespace ProjectManager.Infrastructure
+namespace ProjectManager.Domain
 {
     public class ApplicationDbContext: IdentityDbContext<User>
     {

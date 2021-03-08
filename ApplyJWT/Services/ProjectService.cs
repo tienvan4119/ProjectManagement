@@ -47,9 +47,11 @@ namespace ProjectManager.API.Services
             return _userManager.UpdateAsync(user);
         }
 
-        public Task<List<Project>> GetProjects()
+        public Task<List<Project>> GetProjects(string status)
         {
-            return _projectRepository.GetProjects();
+            var result = (Project.Statuses) status;
+
+            return _projectRepository.GetProjects(status);
         }
 
         public Task<Project> GetProjectById(string projectId)
@@ -73,7 +75,7 @@ namespace ProjectManager.API.Services
             user.Projects = new List<Project> {project};
             return await _userManager.UpdateAsync(user);
         }
-
+        
         public List<User> GetMembers(Project project, string userId)
         {
             return project.Users.Contains(_userManager.FindByIdAsync(userId).Result) ? project.Users.ToList() : null;
