@@ -36,10 +36,6 @@ namespace ProjectManager.API.Services
             return await _unitOfWork.SaveChanges();
         }
 
-        public Task<List<Todo>> GetTasks(Todo.Statuses result, string projectId)
-        {
-            return _todoRepository.GetTasks(result, projectId);
-        }
 
         public async Task<Todo> GetTaskById(string taskId)
         {
@@ -48,6 +44,10 @@ namespace ProjectManager.API.Services
 
         public async Task<int> EditTask(Todo task)
         {
+            if (task.Status.Equals(2) || task.Status.Equals(3))
+            {
+                task.EndDate = DateTime.Now;
+            }
             _todoRepository.Update(task);
             return await _unitOfWork.SaveChanges();
         }
