@@ -7,6 +7,8 @@ namespace ProjectManager.Infrastructure.Interfaces
 {
     public interface ITodoRepository : IRepository<Todo>
     {
-        Task<List<Todo>> GetTasks();
+        Task<List<Todo>> GetAllTasks(string projectId);
+        Task<List<Todo>> GetTasks(Todo.Statuses result, string projectId);
+        Task<Todo> GetTaskById(string taskId);
     }
 }

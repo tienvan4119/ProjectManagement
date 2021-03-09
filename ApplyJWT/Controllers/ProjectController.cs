@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using ProjectManager.API.Services;
 using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
@@ -16,12 +18,13 @@ namespace ProjectManager.API.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly ProjectService _projectService;
-
-        public ProjectController(ProjectService projectService)
+        private readonly UserManager<User> _userManager;
+        public ProjectController(ProjectService projectService, UserManager<User> userManager)
         {
             _projectService = projectService;
+            _userManager = userManager;
         }
-        
+
         [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<ActionResult> AddProject([FromBody] Project project)
@@ -32,12 +35,50 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Project>> GetProjects([FromHeader(Name = "Status")] string status)
+        public async Task<List<Project>> GetProjects([FromQuery(Name = "Status")] string filter)
         {
             var currentUserId = User.Claims.First(_ => _.Type == "UserId").Value;
-            var projects = await _projectService.GetProjects(status);
+            if (filter.Equals("All"))
+            {
+                var projects = await _projectService.GetAllProjects();
+                return User.IsInRole("Member") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
+            }
+            else
+            {
+                var status = filter.Equals("Open") ? Project.Statuses.Open : Project.Statuses.Close;
+                var projects = await _projectService.GetProjects(status);
+                return User.IsInRole("Member") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
+            }
+        }
 
-            return User.IsInRole("Member") ? projects.Where(_ => _.Users.Any(u => u.Id.Equals(currentUserId))).ToList() : projects;
+        [HttpGet("{projectId}")]
+        public async Task<ActionResult<Project>> GetProjectDetail(string projectId)
+        {
+            var project = await _projectService.GetProjectById(projectId);
+            if (project == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Failed to find project's detail"
+                });
+            }
+
+            if (User.IsInRole("Manager"))
+            {
+                return project;
+            }
+            else
+            {
+                var user = await _userManager.FindByIdAsync(User.Claims.First(_ => _.Type == "UserId").Value);
+                return project.Users.Contains(user)
+                    ? project
+                    : StatusCode(StatusCodes.Status403Forbidden, new Response
+                    {
+                        Status = "Error",
+                        Message = "User do not have permission to view this project's detail"
+                    });
+            }
         }
 
         [HttpGet("Members/{projectId}")]

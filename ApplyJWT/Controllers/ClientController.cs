@@ -21,12 +21,11 @@ namespace ProjectManager.API.Controllers
     public class ClientController : ControllerBase
     {
         private readonly ClientService _clientService;
-        private readonly UserManager<User> _userManager;
+        
         private readonly ProjectService _projectService;
-        public ClientController(ClientService clientService, UserManager<User> userManager, ProjectService projectService)
+        public ClientController(ClientService clientService, ProjectService projectService)
         {
             _clientService = clientService;
-            _userManager = userManager;
             _projectService = projectService;
         }
 
@@ -80,10 +79,25 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpGet("GetProject/{id}")]
-        public async Task<List<Project>> GetProjects(string id)
+        public async Task<ActionResult<List<Project>>> GetProjects(string id)
         {
-            var projects = await _projectService.GetProjects();
-            return projects.Where(_ => _.ClientId.Equals(id)).ToList();
+            try
+            {
+                var projects = await _projectService.GetProjectByClient(id);
+                return projects.Count > 0
+                    ? Ok(projects)
+                    : StatusCode(StatusCodes.Status200OK, new Response
+                    {
+                        Status = "Not Found",
+                        Message = "This Client is not related any Project"
+                    });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         [HttpDelete("{id}")]
@@ -91,7 +105,7 @@ namespace ProjectManager.API.Controllers
         {
             try
             {
-                return Ok(await _clientService.DeleteClient(id) != 0 ? new Response { Status = "Success", Message = "Deleted Client successfully" } : new Response { Status = "Error", Message = "Can not find this Client" });
+                return await _clientService.DeleteClient(id) != 0 ? StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Deleted Client successfully" }) : StatusCode(StatusCodes.Status200OK, new Response { Status = "Error", Message = "Can not find this Client" });
             }
             catch (Exception)
             {

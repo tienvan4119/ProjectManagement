@@ -11,10 +11,10 @@ namespace ProjectManager.Domain.Entities
     {
         public enum Statuses
         {
-            NotStarted = 0,
-            InProgress = 1,
-            Completed = 2,
-            Closed = 3
+            NotStarted,
+            InProgress,
+            Completed,
+            Closed
         }
 
         [Required(ErrorMessage = "Name can not be null")]

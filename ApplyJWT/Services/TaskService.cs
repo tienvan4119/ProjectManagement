@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectManager.API.ViewModels.Task;
 using ProjectManager.Domain.Entities;
 using ProjectManager.Infrastructure.Base.Interfaces;
 using ProjectManager.Infrastructure.Interfaces;
@@ -21,20 +22,34 @@ namespace ProjectManager.API.Services
             _projectRepository = projectRepository;
             _todoRepository = todoRepository;
         }
-        public Task<List<Todo>> GetTasks()
+        public Task<List<Todo>> GetAllTasks(string projectId)
         {
-            return _todoRepository.GetTasks();
+            return _todoRepository.GetAllTasks(projectId);
         }
 
-        public Task<int> InsertTask(Todo task, string projectId)
+        public async Task<int> InsertTask(Todo task, string projectId)
         {
-            task.Id = Guid.NewGuid().ToString();
             task.Status = 0;
             task.ProjectId = projectId;
-            task.CreatedDate = DateTime.Now;
             task.IsDeleted = false;
             _todoRepository.Add(task);
-            return _unitOfWork.SaveChanges();
+            return await _unitOfWork.SaveChanges();
+        }
+
+        public Task<List<Todo>> GetTasks(Todo.Statuses result, string projectId)
+        {
+            return _todoRepository.GetTasks(result, projectId);
+        }
+
+        public async Task<Todo> GetTaskById(string taskId)
+        {
+            return await _todoRepository.GetTaskById(taskId);
+        }
+
+        public async Task<int> EditTask(Todo task)
+        {
+            _todoRepository.Update(task);
+            return await _unitOfWork.SaveChanges();
         }
     }
 }

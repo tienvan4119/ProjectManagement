@@ -47,10 +47,9 @@ namespace ProjectManager.API.Services
             return _userManager.UpdateAsync(user);
         }
 
-        public Task<List<Project>> GetProjects(string status)
+        public Task<List<Project>> GetProjects(Project.Statuses status)
         {
-            var result = (Project.Statuses) status;
-
+            
             return _projectRepository.GetProjects(status);
         }
 
@@ -84,6 +83,16 @@ namespace ProjectManager.API.Services
         public bool IsMemberInProject(Project project, string userId)
         {
             return project.Users.Contains(_userManager.FindByIdAsync(userId).Result);
+        }
+
+        public Task<List<Project>> GetAllProjects()
+        {
+            return _projectRepository.GetAllProjects();
+        }
+
+        public  Task<List<Project>> GetProjectByClient(string clientId)
+        {
+            return _projectRepository.GetProjectByClient(clientId);
         }
     }
 }

@@ -15,19 +15,28 @@ namespace ProjectManager.Infrastructure.Repositories
 
         }
 
-        public async Task<List<Project>> GetProjects(string status)
+        public Task<List<Project>> GetAllProjects()
+        {
+            return Entities.ToListAsync();
+        }
+
+        public async Task<List<Project>> GetProjects(Project.Statuses status)
         {
             return await Entities.Include(_ => _.Users)
                 .Include(_ => _.Tasks)
                 .Include(_ => _.Milestones)
                 .Include(_ => _.Users)
-                .Where(_ => _.Status == (int) Project.Statuses.Close).ToListAsync();
+                .Where(_ => _.Status == (int) status).ToListAsync();
         }
 
-        public Task<Project> GetProjectById(string projectId)
+        public async Task<Project> GetProjectById(string projectId)
         {
-            Entities.Include(_ => _.Users).ToListAsync();
-            return Entities.FirstAsync(_ => _.Id.Equals(projectId));
+            return await Entities.Include(_ => _.Users).FirstAsync(_ => _.Id.Equals(projectId));
+        }
+
+        public Task<List<Project>> GetProjectByClient(string clientId)
+        {
+            return Entities.Where(_ => _.ClientId.Equals(clientId)).ToListAsync();
         }
     }
 }

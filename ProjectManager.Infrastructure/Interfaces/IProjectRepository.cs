@@ -7,7 +7,9 @@ namespace ProjectManager.Infrastructure.Interfaces
 {
     public interface IProjectRepository: IRepository<Project>
     {
-        Task<List<Project>> GetProjects();
+        Task<List<Project>> GetAllProjects();
+        Task<List<Project>> GetProjects(Project.Statuses status);
         Task<Project> GetProjectById(string projectId);
+        Task<List<Project>> GetProjectByClient(string clientId);
     }
 }
