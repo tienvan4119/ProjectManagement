@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjectManager.API.ViewModels.Task;
+using ProjectManager.Domain.Authentication;
 using ProjectManager.Domain.Entities;
 using ProjectManager.Infrastructure.Base.Interfaces;
 using ProjectManager.Infrastructure.Interfaces;
@@ -24,7 +25,7 @@ namespace ProjectManager.API.Services
         }
         public Task<List<Todo>> GetAllTasks(string projectId)
         {
-            return _todoRepository.GetAllTasks(projectId);
+            return _todoRepository.GetAllTasksOfProject(projectId);
         }
 
         public async Task<int> InsertTask(Todo task, string projectId)
@@ -50,6 +51,17 @@ namespace ProjectManager.API.Services
             }
             _todoRepository.Update(task);
             return await _unitOfWork.SaveChanges();
+        }
+
+        public async Task<List<Todo>> GetCompleteTaskByDate(DateTime dateTime)
+        {
+            return await _todoRepository.GetTasksByDate(dateTime);
+        }
+
+        public async Task<List<Todo>> GetCompleteTaskByUser(User user)
+        {
+            var tasks =  await _todoRepository.GetAll();
+            return tasks.Where(_ => _.AssignTo == user.Id && (_.Status == 2 || _.Status == 3)).ToList();
         }
     }
 }

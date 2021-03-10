@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectManager.Infrastructure.Base.Interfaces;
 
@@ -37,9 +38,9 @@ namespace ProjectManager.Infrastructure.Base.Repositories
             //_dbFactory.DbContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public List<T> GetAll()
+        public Task<List<T>> GetAll()
         {
-            return Entities.ToList();
+            return Entities.ToListAsync();
         }
 
         public void Attach(T entity)

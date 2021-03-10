@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProjectManager.Infrastructure.Base.Interfaces
 {
@@ -7,7 +8,7 @@ namespace ProjectManager.Infrastructure.Base.Interfaces
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity); 
-        List<T> GetAll();
+        Task<List<T>> GetAll();
         void Attach(T entity);
     }
 }

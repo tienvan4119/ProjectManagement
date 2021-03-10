@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace ProjectManager.Infrastructure.Repositories
 
         }
 
-        public Task<List<Todo>> GetAllTasks(string projectId)
+        public Task<List<Todo>> GetAllTasksOfProject(string projectId)
         {
             return Entities.Where(_ => _.ProjectId.Equals(projectId)).ToListAsync();
         }
@@ -29,6 +30,11 @@ namespace ProjectManager.Infrastructure.Repositories
         public Task<Todo> GetTaskById(string taskId)
         {
             return Entities.FirstAsync(_=>_.Id.Equals(taskId));
+        }
+
+        public Task<List<Todo>> GetTasksByDate(DateTime dateTime)
+        {
+            return Entities.Where(_ => (_.Status == 2 || _.Status == 3) && _.EndDate.Date == dateTime).ToListAsync();
         }
     }
 }

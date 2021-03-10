@@ -12,14 +12,11 @@ namespace ProjectManager.API.Services
     public class MilestoneService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProjectRepository _projectRepository;
         private readonly IMilestoneRepository _milestoneRepository;
         public MilestoneService(IUnitOfWork unitOfWork
-            , IProjectRepository projectRepository
             , IMilestoneRepository milestoneRepository)
         {
             _unitOfWork = unitOfWork;
-            _projectRepository = projectRepository;
             _milestoneRepository = milestoneRepository;
         }
 

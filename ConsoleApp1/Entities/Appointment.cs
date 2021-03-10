@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using ProjectManager.Domain.Entities;
+using System.Text;
 
-namespace ProjectManager.API.ViewModels.Milestone
+namespace ProjectManager.Domain.Entities
 {
-    public class AddMilestoneModel : EditMilestoneModel
+    [Table("Appointments")]
+    public class Appointment : AuditEntity<string>
     {
         [Required(ErrorMessage = "Title can not be null")]
         public string Title { get; set; }
-        [Required(ErrorMessage = "Start Date must be filled")]
+        public string? Description { get; set; }
+        [Required(ErrorMessage = "Start date can not be null")]
         public DateTime StartDate { get; set; }
-        [Required(ErrorMessage = "Milestone must be added for a certain project")]
+        public DateTime? EndDate { get; set; }
         public string ProjectId { get; set; }
         [ForeignKey(nameof(ProjectId))]
         public virtual Project Project { get; set; }
-
     }
 }

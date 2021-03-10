@@ -16,7 +16,7 @@ using ProjectManager.Domain.Entities;
 namespace ProjectManager.API.Controllers
 {
     [Authorize(Roles = "Manager")]
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
     {

@@ -27,7 +27,7 @@ namespace ProjectManager.Domain.Entities
         public virtual ICollection<Todo> Tasks { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Milestone> Milestones { get; set; }
-
-        
+        public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

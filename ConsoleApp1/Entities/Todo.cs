@@ -26,7 +26,6 @@ namespace ProjectManager.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Status { get; set; }
-        public virtual ICollection<User> Users { get; set; }
         public string ProjectId { get; set; }
         [ForeignKey(nameof(ProjectId))]
         public virtual Project Project { get; set; }

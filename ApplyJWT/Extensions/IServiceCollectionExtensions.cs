@@ -19,7 +19,9 @@ namespace ProjectManager.API.Extensions
                 .AddScoped<IProjectRepository, ProjectRepository>()
                 .AddScoped<ITodoRepository, TodoRepository>()
                 .AddScoped<IClientRepository, ClientRepository>()
-                .AddScoped<IMilestoneRepository, MilestoneRepository>();
+                .AddScoped<IMilestoneRepository, MilestoneRepository>()
+                .AddScoped<IDocumentRepository, DocumentRepository>()
+                .AddScoped<IAppointmentRepository, AppointmentRepository>();
         }
 
         public static IServiceCollection AddServices(this IServiceCollection services)
@@ -28,7 +30,8 @@ namespace ProjectManager.API.Extensions
                 .AddScoped<ProjectService>()
                 .AddScoped<ClientService>()
                 .AddScoped<MilestoneService>()
-                .AddScoped<TaskService>();
+                .AddScoped<TaskService>()
+                .AddScoped<DocumentService>();
         }
     }
 }

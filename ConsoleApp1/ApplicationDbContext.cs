@@ -11,6 +11,7 @@ namespace ProjectManager.Domain
         public DbSet<Client> Clients { get; set; }
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Milestone> Milestones { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
              

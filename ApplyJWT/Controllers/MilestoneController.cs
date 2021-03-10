@@ -13,7 +13,7 @@ using ProjectManager.Domain.Entities;
 namespace ProjectManager.API.Controllers
 {
     [Authorize(Roles = "Manager")]
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MilestoneController : ControllerBase
     {
@@ -46,7 +46,7 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddMilestone([FromBody] AddMilestoneModel model)
+        public async Task<ActionResult> AddMilestone([FromBody] MilestoneAddingModel model)
         {
             var milestone = new Milestone
             {
@@ -73,7 +73,7 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpPost("AssignTo/{id}")]
-        public async Task<ActionResult> AssignMilestone(string id, [FromBody] EditMilestoneModel model)
+        public async Task<ActionResult> AssignMilestone(string id, [FromBody] MilestoneEditingModel model)
         {
             if (_userManager.FindByIdAsync(model.AssignedTo) == null)
             {
@@ -131,7 +131,7 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpPut("AssignTo/{id}")]
-        public async Task<ActionResult> UpdateMilestone(string id, [FromBody] EditMilestoneModel model)
+        public async Task<ActionResult> UpdateMilestone(string id, [FromBody] MilestoneEditingModel model)
         {
             var milestone = await _milestoneService.GetMilestoneById(id);
             if (milestone == null)
