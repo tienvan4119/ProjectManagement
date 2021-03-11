@@ -13,11 +13,14 @@ namespace ProjectManager.API.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMilestoneRepository _milestoneRepository;
+        private readonly IProjectRepository _projectRepository;
         public MilestoneService(IUnitOfWork unitOfWork
-            , IMilestoneRepository milestoneRepository)
+            , IMilestoneRepository milestoneRepository
+            , IProjectRepository projectRepository)
         {
             _unitOfWork = unitOfWork;
             _milestoneRepository = milestoneRepository;
+            _projectRepository = projectRepository;
         }
 
         public Task<int> InsertMilestone(Milestone milestone)
@@ -51,6 +54,12 @@ namespace ProjectManager.API.Services
         {
             _milestoneRepository.Update(milestone);
             return await _unitOfWork.SaveChanges();
+        }
+
+        public async Task<List<Milestone>> GetByProjectId(string projectId)
+        {
+            var project = await _projectRepository.GetMilestoneInProject(projectId);
+            return project.Milestones.ToList();
         }
     }
 }

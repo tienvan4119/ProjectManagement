@@ -1,8 +1,11 @@
 ﻿using System;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectManager.API.Services;
+using ProjectManager.API.ViewModels.Project;
+using ProjectManager.Domain.Entities;
 using ProjectManager.Infrastructure.Base.Interfaces;
 using ProjectManager.Infrastructure.Base.Repositories;
 using ProjectManager.Infrastructure.Interfaces;

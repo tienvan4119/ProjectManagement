@@ -15,7 +15,7 @@ using ProjectManager.Domain.Entities;
 namespace ProjectManager.API.Controllers
 {
     [Authorize(Roles = "Manager, Member")]
-    [Route("api/[controller]")]
+    [Route("api/tasks")]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -29,17 +29,14 @@ namespace ProjectManager.API.Controllers
             _taskService = taskService;
         }
 
-        [HttpGet("{projectId}")]
-        public async Task<List<Todo>> GetTasks([FromQuery(Name = "Status")] string status, string projectId)
+        [HttpGet("projects/{id}")]
+        public async Task<List<Todo>> GetTasks([FromQuery(Name = "Status")] string status, string id)
         {
             var currentUserId = User.Claims.First(_ => _.Type == "UserId").Value;
 
-            var tasks = await _taskService.GetAllTasks(projectId);
+            var tasks = await _taskService.GetAllTasks(id);
             return status switch
             {
-                //Enum.TryParse(filter, out Todo.Statuses status);
-                //tasks = await _taskService.GetTasks(status, projectId);
-                //return User.IsInRole("Member") ? tasks.Where(_ => _.CreatedBy != null && (_.AssignTo == currentUserId || _.CreatedBy.Equals(currentUserId))).ToList() : tasks;
                 "All" => User.IsInRole("Manager")
                     ? tasks
                     : tasks.Where(_ =>
@@ -69,7 +66,7 @@ namespace ProjectManager.API.Controllers
             };
         }
 
-        [HttpGet("Detail/{taskId}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Task>> GetTaskDetail(string taskId)
         {
             var task = await _taskService.GetTaskById(taskId);
@@ -84,7 +81,7 @@ namespace ProjectManager.API.Controllers
 
         // Filter Task by Date, User and Project
         [Authorize(Roles = "Manager")]
-        [HttpGet("Completed")]
+        [HttpGet("complete")]
         public async Task<ActionResult<List<Todo>>> GetCompleteTask([FromQuery(Name = "Date")] string date)
         {
             var time = DateTime.Parse(date);
@@ -98,8 +95,8 @@ namespace ProjectManager.API.Controllers
                 });
         }
 
-        [HttpPost("{projectId}")]
-        public async Task<ActionResult> AddTask(string projectId, [FromBody] TaskAddingModel model)
+        [HttpPost("projects/{id}")]
+        public async Task<ActionResult> AddTask(string id, [FromBody] TaskAddingModel model)
         {
             var task = new Todo
             {
@@ -112,33 +109,34 @@ namespace ProjectManager.API.Controllers
                 CreatedBy = User.Claims.First(_ => _.Type == "UserId").Value,
                 CreatedDate = DateTime.Now
             };
-            var result = await _taskService.InsertTask(task, projectId);
+            var result = await _taskService.InsertTask(task, id);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create Task" }) : Ok(new Response { Status = "Success", Message = "Created new task successfully" });
         }
 
-        [HttpPut("{taskId}")]
-        public async Task<ActionResult> EditTask(string taskId, [FromBody] TaskEditingModel model)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> EditTask(string id, [FromBody] TaskEditingModel model)
         {
-            var task = _taskService.GetTaskById(taskId);
+            var task = _taskService.GetTaskById(id);
             task.Result.Status = model.Status;
             var result = await _taskService.EditTask(task.Result);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to Update Task" }) : Ok(new Response { Status = "Success", Message = "Updated task successfully" });
         }
 
-        [HttpPut("AssignTo/{taskId}")]
-        public async Task<ActionResult> AssignTask(string taskId, [FromBody] TaskEditingModel model)
+        [HttpPut("{taskId}/members/{memberId}")]
+        public async Task<ActionResult> AssignTask(string taskId, string memberId)
         {
             var task = _taskService.GetTaskById(taskId);
-            var user = await _userManager.FindByIdAsync(model.AssignTo);
+            var user = await _userManager.FindByIdAsync(memberId);
+
             if (user == null)
             {
                 return StatusCode(StatusCodes.Status200OK,
                     new Response { Status = "Error 404", Message = "Failed to find User" });
             }
-            task.Result.AssignTo = model.AssignTo;
+
+            task.Result.AssignTo = memberId;
             var result = await _taskService.EditTask(task.Result);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to Assign Task" }) : Ok(new Response { Status = "Success", Message = "Assigned task successfully" });
         }
-
     }
 }

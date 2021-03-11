@@ -13,36 +13,17 @@ using ProjectManager.Domain.Entities;
 namespace ProjectManager.API.Controllers
 {
     [Authorize(Roles = "Manager")]
-    [Route("api/[controller]")]
+    [Route("api/milestones")]
     [ApiController]
     public class MilestoneController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly ProjectService _projectService;
         private readonly MilestoneService _milestoneService;
         public MilestoneController(UserManager<User> userManager
-            , ProjectService projectService
             , MilestoneService milestoneService)
         {
             _userManager = userManager;
-            _projectService = projectService;
             _milestoneService = milestoneService;
-        }
-
-        [HttpGet("GetProjectMilestone/{projectId}")]
-        public async Task<ActionResult<List<Milestone>>> GetMilestoneProject(string projectId)
-        {
-            var project = await _projectService.GetProjectById(projectId);
-            if (project == null)
-            {
-                return StatusCode(StatusCodes.Status200OK, new Response
-                {
-                    Status = "Error 404",
-                    Message = "Can not found this Project"
-                });
-            }
-
-            return project.Milestones.ToList();
         }
 
         [HttpPost]
@@ -72,10 +53,10 @@ namespace ProjectManager.API.Controllers
             });
         }
 
-        [HttpPost("AssignTo/{id}")]
-        public async Task<ActionResult> AssignMilestone(string id, [FromBody] MilestoneEditingModel model)
+        [HttpPost("{milestoneId}/members/{memberId}")]
+        public async Task<ActionResult> AssignMilestone(string milestoneId, string memberId)
         {
-            if (_userManager.FindByIdAsync(model.AssignedTo) == null)
+            if (_userManager.FindByIdAsync(memberId) == null)
             {
                 return StatusCode(StatusCodes.Status200OK, new Response
                 {
@@ -84,7 +65,7 @@ namespace ProjectManager.API.Controllers
                 });
             }
 
-            var result = await _milestoneService.AssignMilestone(id, model.AssignedTo);
+            var result = await _milestoneService.AssignMilestone(milestoneId, memberId);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response
             {
                 Status = "Error",
@@ -96,10 +77,10 @@ namespace ProjectManager.API.Controllers
             });
         }
 
-        [HttpPost("{milestoneId}")]
-        public async Task<ActionResult<Milestone>> GetMilestoneById(string milestoneId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Milestone>> GetMilestoneById(string id)
         {
-            var milestone = await _milestoneService.GetMilestoneById(milestoneId);
+            var milestone = await _milestoneService.GetMilestoneById(id);
             return (ActionResult<Milestone>)milestone ?? StatusCode(StatusCodes.Status200OK, new Response
             {
                 Status = "Error 404",
@@ -107,10 +88,10 @@ namespace ProjectManager.API.Controllers
             });
         }
 
-        [HttpDelete("{milestoneId}")]
-        public async Task<ActionResult> DeleteMilestone(string milestoneId)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteMilestone(string id)
         {
-            var milestone = await _milestoneService.GetMilestoneById(milestoneId);
+            var milestone = await _milestoneService.GetMilestoneById(id);
             if (milestone == null)
             {
                 return StatusCode(StatusCodes.Status200OK, new Response
@@ -130,7 +111,7 @@ namespace ProjectManager.API.Controllers
             });
         }
 
-        [HttpPut("AssignTo/{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateMilestone(string id, [FromBody] MilestoneEditingModel model)
         {
             var milestone = await _milestoneService.GetMilestoneById(id);

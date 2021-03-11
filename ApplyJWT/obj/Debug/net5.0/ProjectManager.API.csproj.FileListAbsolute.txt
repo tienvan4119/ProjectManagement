@@ -74,3 +74,4 @@ C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Newtonsoft.J
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\Swashbuckle.AspNetCore.Newtonsoft.dll
+C:\Users\van.nguyen\source\repos\ApplyJWT\ApplyJWT\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

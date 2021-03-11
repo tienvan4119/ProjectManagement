@@ -16,7 +16,7 @@ using ProjectManager.Domain.Entities;
 namespace ProjectManager.API.Controllers
 {
     [Authorize(Roles = "Manager")]
-    [Route("api/[controller]")]
+    [Route("api/clients")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -34,7 +34,7 @@ namespace ProjectManager.API.Controllers
         {
             client.CreatedBy = User.Claims.First(_ => _.Type == "UserId").Value;
             
-            var result = await _clientService.InsertClient(client);
+            var result = await _clientService.AddClient(client);
             return result == 0 ? StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Failed to create new Client" }) : Ok(new Response { Status = "Success", Message = "Created new Client successfully" });
         }
 
@@ -78,7 +78,7 @@ namespace ProjectManager.API.Controllers
             }
         }
 
-        [HttpGet("GetProject/{id}")]
+        [HttpGet("{id}/projects")]
         public async Task<ActionResult<List<Project>>> GetProjects(string id)
         {
             try

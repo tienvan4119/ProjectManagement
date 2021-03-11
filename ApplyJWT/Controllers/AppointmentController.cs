@@ -4,12 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using ProjectManager.API.Services;
 using ProjectManager.API.ViewModels.Appointment;
+using ProjectManager.Domain.Authentication;
+using ProjectManager.Domain.Entities;
 
 namespace ProjectManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize(Roles = "Manager")]
+    [Route("api/appointments")]
     [ApiController]
     public class AppointmentController : ControllerBase
     {
@@ -18,32 +22,58 @@ namespace ProjectManager.API.Controllers
         private readonly ProjectService _projectService;
         public AppointmentController(AppointmentService appointmentService, ProjectService projectService)
         {
-            appointmentService = _appointmentService;
+            _appointmentService = appointmentService;
             _projectService = projectService;
         }
 
-        [HttpGet]
-        public async Task GetAppointment()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentDetail(string id)
         {
-
-        }
-
-        [HttpGet("{appointmentId}")]
-        public async Task GetAppointmentDetail(string appointmentId)
-        {
-
+            var appointment = await _appointmentService.GetById(id);
+            return appointment != null
+                ? Ok(appointment)
+                : StatusCode(StatusCodes.Status200OK, new Response
+                {
+                    Status = "Error 404",
+                    Message = "Can not get this appointment's detail"
+                });
         }
 
         [HttpPost]
-        public async Task AddAppointment([FromBody] AppointmentAddingModel model)
+        public async Task<ActionResult> AddAppointment([FromBody] AppointmentAddingModel model, string id)
         {
-
+            model.CreatedBy = User.Claims.First(_ => _.Type == "UserId").Value;
+            var result = await _appointmentService.AddAppointment(model);
+            return result > 0
+                ? Ok("Created Appointment successfully")
+                : StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Failed to create new appointment"
+                });
         }
 
-        [HttpPut("{appointmentId}")]
-        public async Task UpdateAppointment([FromBody] AppointmentEditingModel model)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateAppointment([FromBody] AppointmentEditingModel model, string id)
         {
-
+            model.UpdatedBy = User.Claims.First(_ => _.Type == "UserId").Value;
+            var appointment = await _appointmentService.GetById(id);
+            if (appointment == null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new Response
+                {
+                    Status = "Error 404",
+                    Message = "Can not find this appointment"
+                });
+            }
+            var result = await _appointmentService.UpdateAppointment(appointment, model);
+            return result > 0
+                ? Ok("Updated appointment successfully")
+                : StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Failed to update this appointment"
+                });
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ProjectManager.API.Services
             _clientRepository = clientRepository;
         }
 
-        public Task<int> InsertClient(Client client)
+        public Task<int> AddClient(Client client)
         {
             client.Id = Guid.NewGuid().ToString();
             client.CreatedDate = DateTime.Now;

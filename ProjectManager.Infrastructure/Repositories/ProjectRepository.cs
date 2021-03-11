@@ -31,12 +31,26 @@ namespace ProjectManager.Infrastructure.Repositories
 
         public async Task<Project> GetProjectById(string projectId)
         {
-            return await Entities.Include(_ => _.Users).FirstAsync(_ => _.Id.Equals(projectId));
+            return await Entities.Include(_ => _.Users)
+                
+                .FirstAsync(_ => _.Id.Equals(projectId));
         }
 
         public Task<List<Project>> GetProjectByClient(string clientId)
         {
             return Entities.Where(_ => _.ClientId.Equals(clientId)).ToListAsync();
+        }
+
+        public async Task<Project> GetMilestoneInProject(string projectId)
+        {
+            return await Entities.Include(_ => _.Milestones)
+                .FirstAsync(_ => _.Id == projectId);
+        }
+
+        public async Task<Project> GetAppointmentInProject(string projectId)
+        {
+            return await Entities.Include(_ => _.Appointments)
+                .FirstAsync(_ => _.Id == projectId);
         }
     }
 }

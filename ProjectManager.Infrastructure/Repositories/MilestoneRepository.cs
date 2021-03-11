@@ -24,5 +24,6 @@ namespace ProjectManager.Infrastructure.Repositories
         {
             return Entities.FirstAsync(_ => _.Id.Equals(id));
         }
+
     }
 }

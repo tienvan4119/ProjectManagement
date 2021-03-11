@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectManager.Domain;
 
 namespace ProjectManager.API.ViewModels.Milestone
 {
-    public class MilestoneEditingModel
+    public class MilestoneEditingModel : AuditEntity<string>
     {
         [Required(ErrorMessage = "Title can not be null")]
         public string Title { get; set; }

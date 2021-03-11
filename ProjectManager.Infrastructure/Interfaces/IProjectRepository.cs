@@ -11,5 +11,7 @@ namespace ProjectManager.Infrastructure.Interfaces
         Task<List<Project>> GetProjects(Project.Statuses status);
         Task<Project> GetProjectById(string projectId);
         Task<List<Project>> GetProjectByClient(string clientId);
+        Task<Project> GetMilestoneInProject(string projectId);
+        Task<Project> GetAppointmentInProject(string projectId);
     }
 }
