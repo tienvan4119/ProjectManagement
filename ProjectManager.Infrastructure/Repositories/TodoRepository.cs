@@ -32,9 +32,9 @@ namespace ProjectManager.Infrastructure.Repositories
             return Entities.FirstAsync(_=>_.Id.Equals(taskId));
         }
 
-        public Task<List<Todo>> GetTasksByDate(DateTime dateTime)
+        public Task<List<Todo>> GetCompleteTask()
         {
-            return Entities.Where(_ => (_.Status == 2 || _.Status == 3) && _.EndDate.Date == dateTime).ToListAsync();
+            return Entities.Where(_ => _.Status == 3 || _.Status == 2).ToListAsync();
         }
     }
 }

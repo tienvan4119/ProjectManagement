@@ -27,6 +27,18 @@ namespace ProjectManager.API.Controllers
             _projectService = projectService;
         }
 
+        [HttpGet("projects/{id}")]
+        public async Task<ActionResult<List<Document>>> GetDocuments(string id)
+        {
+            var project = await _projectService.GetProjectById(id);
+            
+            return project.Documents.Count > 0 ? Ok(project.Documents.ToList()) : StatusCode(StatusCodes.Status200OK, new Response
+            {
+                Status = "Error 404",
+                Message = "Documents not found"
+            });
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddDocument([FromBody] DocumentAddingModel model)
         {
@@ -49,11 +61,18 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteDocument(string id)
+        public async Task<ActionResult> DeleteDocument(string id)
         {
             //Get Document
             //Delete Document
             var result = await _documentService.DeleteDocument(id);
+            return result > 0
+                ? Ok("Delete document successfully")
+                : StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Failed to delete this document"
+                });
         }
     }
 }

@@ -11,6 +11,6 @@ namespace ProjectManager.Infrastructure.Interfaces
         Task<List<Todo>> GetAllTasksOfProject(string projectId);
         Task<List<Todo>> GetTasks(Todo.Statuses result, string projectId);
         Task<Todo> GetTaskById(string taskId);
-        Task<List<Todo>> GetTasksByDate(DateTime dateTime);
+        Task<List<Todo>> GetCompleteTask();
     }
 }

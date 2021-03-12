@@ -21,7 +21,6 @@ namespace ProjectManager.API.Controllers
     public class ClientController : ControllerBase
     {
         private readonly ClientService _clientService;
-        
         private readonly ProjectService _projectService;
         public ClientController(ClientService clientService, ProjectService projectService)
         {

@@ -53,9 +53,13 @@ namespace ProjectManager.API.Services
             return await _unitOfWork.SaveChanges();
         }
 
-        public async Task<List<Todo>> GetCompleteTaskByDate(DateTime dateTime)
+        public async Task<List<Todo>> GetCompleteTask(CompleteTask model)
         {
-            return await _todoRepository.GetTasksByDate(dateTime);
+            var tasks = await _todoRepository.GetCompleteTask();
+            var exceptTime = DateTime.Parse("01/01/0001");
+            return tasks.Where(_ => (_.EndDate.Date == model.EndDate.Date || model.EndDate.Date == exceptTime.Date)
+                                    && (_.ProjectId == model.ProjectId || model.ProjectId == null)
+                                    && (_.AssignTo == model.UserId || model.UserId == null)).ToList();
         }
 
         public async Task<List<Todo>> GetCompleteTaskByUser(User user)

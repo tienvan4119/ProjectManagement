@@ -81,17 +81,16 @@ namespace ProjectManager.API.Controllers
 
         // Filter Task by Date, User and Project
         [Authorize(Roles = "Manager")]
-        [HttpGet("complete")]
-        public async Task<ActionResult<List<Todo>>> GetCompleteTask([FromQuery(Name = "Date")] string date)
+        [HttpPost("completed")]
+        public async Task<ActionResult<List<Todo>>> GetCompleteTask(CompleteTask model)
         {
-            var time = DateTime.Parse(date);
-            var tasks = await _taskService.GetCompleteTaskByDate(time);
+            var tasks = await _taskService.GetCompleteTask(model);
             return tasks.Count > 0
-                ? tasks
+                ? Ok(tasks)
                 : StatusCode(StatusCodes.Status200OK, new Response
                 {
-                    Status = "No data",
-                    Message = "No task has done today"
+                    Status = "Not found",
+                    Message = "No data found"
                 });
         }
 
